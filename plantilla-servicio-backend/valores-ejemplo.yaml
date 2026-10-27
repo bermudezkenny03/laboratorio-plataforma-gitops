@@ -1,0 +1,11 @@
+# Valores con los que se generó gestion-acueductos-api
+nombre_servicio: gestion-acueductos-api
+titulo_servicio: API de Gestión de Acueductos
+descripcion: Servicio que consulta y registra información sobre cobertura, consumo y estado de acueductos veredales.
+owner: group:equipo-datos-agua
+sistema: plataforma-gestion-agua
+organizacion: bermudezkenny03
+ciclo_vida: experimental
+canal_soporte: "#soporte-datos-agua"
+repositorio_gitops: https://github.com/bermudezkenny03/laboratorio-plataforma-gitops.git
+ruta_apps_gitops: repo-gitops/apps

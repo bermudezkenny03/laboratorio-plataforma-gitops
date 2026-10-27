@@ -1,0 +1,5 @@
+site_name: {{ titulo_servicio }}
+nav:
+  - Inicio: index.md
+plugins:
+  - techdocs-core

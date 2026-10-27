@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ nombre_servicio }}
+  namespace: {{ nombre_servicio }}
+  labels:
+    app: {{ nombre_servicio }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ nombre_servicio }}
+  template:
+    metadata:
+      labels:
+        app: {{ nombre_servicio }}
+    spec:
+      containers:
+        - name: {{ nombre_servicio }}
+          image: nginx:1.27-alpine
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
