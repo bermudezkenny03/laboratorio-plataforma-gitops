@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gestion-acueductos-api
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/bermudezkenny03/laboratorio-plataforma-gitops.git
+    targetRevision: HEAD
+    path: repo-gitops/apps/gestion-acueductos-api
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gestion-acueductos-api
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
