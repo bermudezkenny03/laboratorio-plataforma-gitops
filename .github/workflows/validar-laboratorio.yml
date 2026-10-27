@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Descargar el repositorio
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Configurar Python 3.11
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
@@ -51,7 +51,7 @@ jobs:
 
       - name: Pruebas del código base generado (FastAPI)
         working-directory: repo-aplicacion
-        run: pytest -q
+        run: python -m pytest -q
 
       - name: Trazabilidad de las fuentes RAG
         run: python scripts/rag-consulta.py --verificar-fuentes

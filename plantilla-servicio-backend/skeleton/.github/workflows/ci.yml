@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Descargar código
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Configurar Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
@@ -21,7 +21,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Ejecutar pruebas
-        run: pytest -q
+        run: python -m pytest -q
 
       - name: Validar catálogo y manifiestos YAML
         run: |

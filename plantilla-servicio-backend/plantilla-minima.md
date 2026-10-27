@@ -28,7 +28,7 @@ Repositorio de aplicación (`skeleton/`):
 - catalog-info.yaml
 - mkdocs.yml
 - docs/index.md
-- app/main.py, requirements.txt, tests/test_main.py (código base FastAPI con `/health`)
+- app/main.py, requirements.txt, pytest.ini, tests/test_main.py (código base FastAPI con `/health`)
 - k8s/namespace.yaml
 - k8s/deployment.yaml
 - k8s/service.yaml

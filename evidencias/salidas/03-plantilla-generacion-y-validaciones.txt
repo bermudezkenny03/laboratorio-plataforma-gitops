@@ -11,6 +11,7 @@ Repositorio de aplicación:
   + /tmp/prueba/repo-aplicacion/k8s/namespace.yaml
   + /tmp/prueba/repo-aplicacion/k8s/service.yaml
   + /tmp/prueba/repo-aplicacion/mkdocs.yml
+  + /tmp/prueba/repo-aplicacion/pytest.ini
   + /tmp/prueba/repo-aplicacion/requirements.txt
   + /tmp/prueba/repo-aplicacion/tests/test_main.py
 Repositorio GitOps:
@@ -18,7 +19,7 @@ Repositorio GitOps:
   + /tmp/prueba/repo-gitops/apps/gestion-acueductos-api/namespace.yaml
   + /tmp/prueba/repo-gitops/apps/gestion-acueductos-api/service.yaml
   + /tmp/prueba/repo-gitops/apps/gestion-acueductos-api/argocd-application.yaml
-Listo: 16 archivos generados y validados.
+Listo: 17 archivos generados y validados.
 
 # Los manifiestos generados son idénticos a los del repositorio GitOps (salvo replicas, cambiada después por Git en el paso 6.5)
 $ diff -r /tmp/prueba/repo-gitops/apps/gestion-acueductos-api repo-gitops/apps/gestion-acueductos-api
