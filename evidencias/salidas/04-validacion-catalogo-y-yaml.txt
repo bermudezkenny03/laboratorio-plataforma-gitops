@@ -1,0 +1,32 @@
+# Paso 4.3 (comandos del laboratorio)
+$ python -c "import yaml; yaml.safe_load(open('repo-aplicacion/catalog-info.yaml')); print('catalog-info.yaml válido')"
+catalog-info.yaml válido
+$ python -c "import yaml; yaml.safe_load(open('repo-aplicacion/catalog-grupos.yaml')); print('catalog-grupos.yaml válido')"
+catalog-grupos.yaml válido
+$ python -c "import yaml; yaml.safe_load(open('repo-aplicacion/catalog-sistema.yaml')); print('catalog-sistema.yaml válido')"
+catalog-sistema.yaml válido
+
+# Manifiestos Kubernetes y Application (YAML)
+repo-gitops/apps/gestion-acueductos-api/argocd-application.yaml válido
+repo-gitops/apps/gestion-acueductos-api/deployment.yaml válido
+repo-gitops/apps/gestion-acueductos-api/namespace.yaml válido
+repo-gitops/apps/gestion-acueductos-api/service.yaml válido
+
+# Validación de los manifiestos contra la API del clúster (dry-run de servidor, no aplica nada)
+$ kubectl apply --dry-run=server -f repo-gitops/apps/gestion-acueductos-api/
+application.argoproj.io/gestion-acueductos-api configured (server dry run)
+deployment.apps/gestion-acueductos-api configured (server dry run)
+namespace/gestion-acueductos-api configured (server dry run)
+service/gestion-acueductos-api configured (server dry run)
+
+# Validación con los JSON Schema oficiales de Backstage (packages/catalog-model/src/schema)
+$ python scripts/validar-catalogo-backstage.py <esquemas> repo-aplicacion/catalog-*.yaml
+[OK]    repo-aplicacion/catalog-info.yaml: Component gestion-acueductos-api cumple el esquema ComponentV1alpha1
+[OK]    repo-aplicacion/catalog-grupos.yaml: Group equipo-datos-agua cumple el esquema GroupV1alpha1
+[OK]    repo-aplicacion/catalog-sistema.yaml: System plataforma-gestion-agua cumple el esquema SystemV1alpha1
+[OK]    repo-aplicacion/catalog-location.yaml: Location laboratorio-plataforma-gitops cumple el esquema LocationV1alpha1
+[OK]    Component gestion-acueductos-api: owner -> group:default/equipo-datos-agua existe
+[OK]    Component gestion-acueductos-api: system -> system:default/plataforma-gestion-agua existe
+[OK]    System plataforma-gestion-agua: owner -> group:default/equipo-datos-agua existe
+
+Resultado: VÁLIDO

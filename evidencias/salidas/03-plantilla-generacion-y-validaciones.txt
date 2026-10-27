@@ -1,0 +1,55 @@
+# Actividad 3: generación de un servicio con la plantilla (en una carpeta temporal)
+$ python scripts/generar-servicio.py --valores plantilla-servicio-backend/valores-ejemplo.yaml --salida-app /tmp/prueba/repo-aplicacion --raiz-gitops /tmp/prueba --catalogo-grupos repo-aplicacion/catalog-grupos.yaml
+Repositorio de aplicación:
+  + /tmp/prueba/repo-aplicacion/.github/workflows/ci.yml
+  + /tmp/prueba/repo-aplicacion/README.md
+  + /tmp/prueba/repo-aplicacion/app/__init__.py
+  + /tmp/prueba/repo-aplicacion/app/main.py
+  + /tmp/prueba/repo-aplicacion/catalog-info.yaml
+  + /tmp/prueba/repo-aplicacion/docs/index.md
+  + /tmp/prueba/repo-aplicacion/k8s/deployment.yaml
+  + /tmp/prueba/repo-aplicacion/k8s/namespace.yaml
+  + /tmp/prueba/repo-aplicacion/k8s/service.yaml
+  + /tmp/prueba/repo-aplicacion/mkdocs.yml
+  + /tmp/prueba/repo-aplicacion/requirements.txt
+  + /tmp/prueba/repo-aplicacion/tests/test_main.py
+Repositorio GitOps:
+  + /tmp/prueba/repo-gitops/apps/gestion-acueductos-api/deployment.yaml
+  + /tmp/prueba/repo-gitops/apps/gestion-acueductos-api/namespace.yaml
+  + /tmp/prueba/repo-gitops/apps/gestion-acueductos-api/service.yaml
+  + /tmp/prueba/repo-gitops/apps/gestion-acueductos-api/argocd-application.yaml
+Listo: 16 archivos generados y validados.
+
+# Los manifiestos generados son idénticos a los del repositorio GitOps (salvo replicas, cambiada después por Git en el paso 6.5)
+$ diff -r /tmp/prueba/repo-gitops/apps/gestion-acueductos-api repo-gitops/apps/gestion-acueductos-api
+diff -r /tmp/prueba/repo-gitops/apps/gestion-acueductos-api/deployment.yaml repo-gitops/apps/gestion-acueductos-api/deployment.yaml
+9c9
+<   replicas: 1
+---
+>   replicas: 2
+
+# Validaciones de plantilla-minima.md con valores inválidos
+$ cat valores-invalidos.yaml
+nombre_servicio: Mi_Servicio
+titulo_servicio: Prueba
+descripcion: corta
+owner: group:no-existe
+sistema: plataforma-gestion-agua
+organizacion: bermudezkenny03
+ciclo_vida: beta
+canal_soporte: "#x"
+repositorio_gitops: no-es-una-url
+ruta_apps_gitops: repo-gitops/apps
+$ python scripts/generar-servicio.py --valores valores-invalidos.yaml ...
+Validación fallida:
+  - nombre_servicio debe usar minúsculas, números y guiones (máx. 63 caracteres)
+  - El owner group:no-existe no existe en repo-aplicacion/catalog-grupos.yaml
+  - La descripción debe tener al menos 20 caracteres
+  - repositorio_gitops debe ser una URL válida (https://host/organizacion/repositorio)
+  - ciclo_vida debe ser experimental o production
+(código de salida: 1)
+
+# Nombre duplicado
+Validación fallida:
+  - El servicio 'gestion-acueductos-api' ya existe en /tmp/prueba/repo-gitops/apps/gestion-acueductos-api (use --sobrescribir para regenerarlo)
+(código de salida: 1)

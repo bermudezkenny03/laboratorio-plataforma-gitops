@@ -1,0 +1,45 @@
+$ git --version
+git version 2.43.0
+
+$ docker --version
+Docker version 29.9.2, build a82e528
+
+$ kubectl version --client
+Client Version: v1.37.1+k3s1
+Kustomize Version: v5.8.1
+
+$ k3s --version
+k3s version v1.37.1+k3s1 (356c0254)
+go version go1.26.8
+
+$ argocd version --client --short
+argocd: v3.5.6+c2b1e30
+
+$ node -v
+v22.23.4
+
+$ yarn -v
+1.22.22
+
+$ python3 --version
+Python 3.13.17
+
+$ curl --version
+curl 8.5.0 (x86_64-pc-linux-gnu) libcurl/8.5.0 OpenSSL/3.0.13 zlib/1.3.1.zlib-ng brotli/1.1.0 zstd/1.5.5 libidn2/2.3.7 libpsl/0.21.2 (+libidn2/2.3.7) libssh/0.10.6/openssl/zlib nghttp2/1.59.0 librtmp/2.3 OpenLDAP/2.6.10
+Release-Date: 2023-12-06, security patched: 8.5.0-2ubuntu10.16
+
+$ python3 -c "import yaml; print(yaml.__version__)"
+6.0.3
+
+$ kubectl config current-context
+laboratorio-gitops
+
+$ kubectl get nodes -o wide
+NAME                 STATUS   ROLES           AGE   VERSION        INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION            CONTAINER-RUNTIME
+laboratorio-gitops   Ready    control-plane   22m   v1.37.1+k3s1   192.0.2.2     <none>        Ubuntu 24.04.5 LTS   6.18.44-fc-v165 (amd64)   containerd://2.3.4-k3s1
+
+$ kind version
+(no usado en este entorno: kind necesita la imagen kindest/node de Docker Hub; se usó k3s, ver evidencias/entorno-de-ejecucion.md)
+
+$ ollama --version
+(no disponible en este entorno: ver evidencias/entorno-de-ejecucion.md)

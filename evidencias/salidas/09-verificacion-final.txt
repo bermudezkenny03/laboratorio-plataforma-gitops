@@ -1,0 +1,121 @@
+$ ls -R  (sin .git)
+.github
+.github/workflows
+.github/workflows/validar-laboratorio.yml
+.gitignore
+README.md
+docs
+docs/index.md
+evidencias
+evidencias/capturas
+evidencias/capturas/01-argocd-synced-healthy-arbol.png
+evidencias/capturas/01-argocd-synced-healthy-lista.png
+evidencias/capturas/02-argocd-2-replicas-selfheal-arbol.png
+evidencias/capturas/02-argocd-2-replicas-selfheal-lista.png
+evidencias/demostracion.md
+evidencias/entorno-de-ejecucion.md
+evidencias/rag-evaluacion.md
+evidencias/salidas
+evidencias/salidas/00-verificacion-entorno.txt
+evidencias/salidas/03-plantilla-generacion-y-validaciones.txt
+evidencias/salidas/04-validacion-catalogo-y-yaml.txt
+evidencias/salidas/06-1-argocd-pods.txt
+evidencias/salidas/06-4-aplicacion-synced-healthy.txt
+evidencias/salidas/06-4-servicio-responde.txt
+evidencias/salidas/06-5-cambio-en-git-2-replicas.txt
+evidencias/salidas/06-6-autocorreccion-selfheal.txt
+evidencias/salidas/08-rag-trazabilidad-fuentes.txt
+evidencias/salidas/09-verificacion-final.txt
+fuentes
+fuentes/catalog-grupos.yaml
+fuentes/catalog-info.yaml
+fuentes/catalog-sistema.yaml
+fuentes/consumidor.md
+fuentes/contexto-rag.txt
+fuentes/golden-path.md
+fuentes/index.md
+fuentes/inventario-rag.md
+golden-path.md
+plantilla-servicio-backend
+plantilla-servicio-backend/gitops
+plantilla-servicio-backend/gitops/argocd-application.yaml
+plantilla-servicio-backend/plantilla-minima.md
+plantilla-servicio-backend/skeleton
+plantilla-servicio-backend/skeleton/.github
+plantilla-servicio-backend/skeleton/.github/workflows
+plantilla-servicio-backend/skeleton/.github/workflows/ci.yml
+plantilla-servicio-backend/skeleton/README.md
+plantilla-servicio-backend/skeleton/app
+plantilla-servicio-backend/skeleton/app/__init__.py
+plantilla-servicio-backend/skeleton/app/main.py
+plantilla-servicio-backend/skeleton/catalog-info.yaml
+plantilla-servicio-backend/skeleton/docs
+plantilla-servicio-backend/skeleton/docs/index.md
+plantilla-servicio-backend/skeleton/k8s
+plantilla-servicio-backend/skeleton/k8s/deployment.yaml
+plantilla-servicio-backend/skeleton/k8s/namespace.yaml
+plantilla-servicio-backend/skeleton/k8s/service.yaml
+plantilla-servicio-backend/skeleton/mkdocs.yml
+plantilla-servicio-backend/skeleton/requirements.txt
+plantilla-servicio-backend/skeleton/tests
+plantilla-servicio-backend/skeleton/tests/test_main.py
+plantilla-servicio-backend/valores-ejemplo.yaml
+repo-aplicacion
+repo-aplicacion/.github
+repo-aplicacion/.github/workflows
+repo-aplicacion/.github/workflows/ci.yml
+repo-aplicacion/README.md
+repo-aplicacion/app
+repo-aplicacion/app/__init__.py
+repo-aplicacion/app/main.py
+repo-aplicacion/catalog-grupos.yaml
+repo-aplicacion/catalog-info.yaml
+repo-aplicacion/catalog-location.yaml
+repo-aplicacion/catalog-sistema.yaml
+repo-aplicacion/docs
+repo-aplicacion/docs/index.md
+repo-aplicacion/k8s
+repo-aplicacion/k8s/deployment.yaml
+repo-aplicacion/k8s/namespace.yaml
+repo-aplicacion/k8s/service.yaml
+repo-aplicacion/mkdocs.yml
+repo-aplicacion/requirements.txt
+repo-aplicacion/tests
+repo-aplicacion/tests/test_main.py
+repo-gitops
+repo-gitops/apps
+repo-gitops/apps/gestion-acueductos-api
+repo-gitops/apps/gestion-acueductos-api/argocd-application.yaml
+repo-gitops/apps/gestion-acueductos-api/deployment.yaml
+repo-gitops/apps/gestion-acueductos-api/namespace.yaml
+repo-gitops/apps/gestion-acueductos-api/service.yaml
+scripts
+scripts/generar-servicio.py
+scripts/rag-consulta.py
+scripts/validar-catalogo-backstage.py
+
+$ kubectl get pods -n gestion-acueductos-api
+NAME                                      READY   STATUS    RESTARTS   AGE
+gestion-acueductos-api-5d496654cc-6xm94   1/1     Running   0          4m18s
+gestion-acueductos-api-5d496654cc-xmjtn   1/1     Running   0          8m45s
+
+$ argocd app get gestion-acueductos-api
+Name:               argocd/gestion-acueductos-api
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          gestion-acueductos-api
+URL:                https://localhost:8080/applications/gestion-acueductos-api
+Source:
+- Repo:             https://github.com/bermudezkenny03/laboratorio-plataforma-gitops.git
+  Target:           HEAD
+  Path:             repo-gitops/apps/gestion-acueductos-api
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to HEAD (3a7acff)
+Health Status:      Healthy
+
+GROUP        KIND         NAMESPACE               NAME                    STATUS  HEALTH   HOOK  MESSAGE
+apps         Deployment   gestion-acueductos-api  gestion-acueductos-api  Synced  Healthy        deployment.apps/gestion-acueductos-api configured
+             Namespace                            gestion-acueductos-api  Synced                 
+             Service      gestion-acueductos-api  gestion-acueductos-api  Synced  Healthy        
+argoproj.io  Application  argocd                  gestion-acueductos-api  Synced                 
