@@ -1,0 +1,15 @@
+Contexto generado: fuentes/contexto-rag.txt (6975 caracteres, 5 fuentes)
+Pregunta 1: ¿Quién es el equipo propietario de la API de Gestión de Acueductos y cómo se solicita soporte?
+  [OK] 'equipo-datos-agua' aparece en: fuentes/index.md, fuentes/catalog-grupos.yaml
+  [OK] '#soporte-datos-agua' aparece en: fuentes/index.md
+  [OK] 'datos-agua@ejemplo.com' aparece en: fuentes/index.md, fuentes/catalog-grupos.yaml
+Pregunta 2: ¿Cómo se despliega el servicio y qué herramienta sincroniza los cambios?
+  [OK] 'GitOps' aparece en: fuentes/index.md, fuentes/golden-path.md
+  [OK] 'Argo CD' aparece en: fuentes/index.md, fuentes/golden-path.md
+  [OK] 'repositorio GitOps' aparece en: fuentes/index.md, fuentes/golden-path.md
+Pregunta 3: ¿Qué debe verificar la desarrolladora después de que Argo CD sincronice?
+  [OK] 'Synced' aparece en: fuentes/index.md, fuentes/golden-path.md
+  [OK] 'Healthy' aparece en: fuentes/index.md, fuentes/golden-path.md
+  [OK] 'Running' aparece en: fuentes/index.md, fuentes/golden-path.md
+Pregunta 4: ¿Cuál es la dirección IP pública del servicio en producción?
+  [OK] pregunta de control: las fuentes no contienen una IP pública -> la respuesta correcta es "No encuentro esta información en las fuentes proporcionadas."

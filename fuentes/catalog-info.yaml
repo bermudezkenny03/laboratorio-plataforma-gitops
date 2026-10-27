@@ -1,0 +1,30 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: gestion-acueductos-api
+  title: API de Gestión de Acueductos
+  description: Servicio que consulta y registra información sobre cobertura, consumo y estado de acueductos veredales.
+  tags:
+    - python
+    - fastapi
+    - agua
+    - gitops
+  annotations:
+    github.com/project-slug: bermudezkenny03/laboratorio-plataforma-gitops
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/source-location: url:https://github.com/bermudezkenny03/laboratorio-plataforma-gitops/tree/main/repo-aplicacion/
+    argocd/app-name: gestion-acueductos-api
+    backstage.io/kubernetes-label-selector: app=gestion-acueductos-api
+    backstage.io/kubernetes-namespace: gestion-acueductos-api
+  links:
+    - url: https://github.com/bermudezkenny03/laboratorio-plataforma-gitops/tree/main/repo-aplicacion
+      title: Repositorio fuente
+      icon: github
+    - url: https://github.com/bermudezkenny03/laboratorio-plataforma-gitops/tree/main/repo-gitops
+      title: Repositorio GitOps
+      icon: github
+spec:
+  type: service
+  lifecycle: experimental
+  owner: group:equipo-datos-agua
+  system: plataforma-gestion-agua

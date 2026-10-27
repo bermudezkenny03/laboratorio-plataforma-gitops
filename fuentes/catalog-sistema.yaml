@@ -1,0 +1,8 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: plataforma-gestion-agua
+  title: Plataforma de Gestión de Agua
+  description: Plataforma para gestionar información de acueductos veredales.
+spec:
+  owner: group:equipo-datos-agua

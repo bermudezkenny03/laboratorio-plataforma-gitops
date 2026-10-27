@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: equipo-datos-agua
+  title: Equipo de Datos de Agua
+  description: Equipo responsable de los servicios de gestión de acueductos.
+spec:
+  type: team
+  profile:
+    displayName: Equipo de Datos de Agua
+    email: datos-agua@ejemplo.com
+  children: []
