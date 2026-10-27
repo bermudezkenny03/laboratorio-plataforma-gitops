@@ -1,0 +1,50 @@
+# Paso 6.5: cambio en Git (replicas: 1 -> 2), commit 07961c7 publicado a las 23:52:58 (UTC-5)
+# Argo CD detectó el commit por sí solo (sondeo por defecto de ~3 min) a las 23:55:44, sin refresh manual.
+# Monitoreo cada 5 s:
+23:53:03 rev=4a5ed29 Synced Healthy pods_running=1
+...      (sin cambios hasta el siguiente sondeo de Argo CD)
+23:55:39 rev=4a5ed29 Synced Healthy pods_running=1
+23:55:44 rev=07961c7 Synced Progressing pods_running=2
+23:55:55 rev=07961c7 Synced Healthy pods_running=2
+
+$ git log -2 --format=%h %an %ad %s --date=format:%H:%M:%S
+07961c7 Kenny Bermudez 23:52:56 Escalar gestion-acueductos-api a 2 réplicas
+4a5ed29 Kenny Bermudez 23:50:55 Actividad 7: documentación de ownership, despliegue y soporte
+
+$ git show --stat --format=%h %s 07961c7
+07961c7 Escalar gestion-acueductos-api a 2 réplicas
+
+ repo-gitops/apps/gestion-acueductos-api/deployment.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+$ argocd app get gestion-acueductos-api
+Name:               argocd/gestion-acueductos-api
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          gestion-acueductos-api
+URL:                https://localhost:8080/applications/gestion-acueductos-api
+Source:
+- Repo:             https://github.com/bermudezkenny03/laboratorio-plataforma-gitops.git
+  Target:           HEAD
+  Path:             repo-gitops/apps/gestion-acueductos-api
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to HEAD (07961c7)
+Health Status:      Healthy
+
+GROUP        KIND         NAMESPACE               NAME                    STATUS   HEALTH   HOOK  MESSAGE
+             Namespace    gestion-acueductos-api  gestion-acueductos-api  Running  Synced         namespace/gestion-acueductos-api unchanged
+             Service      gestion-acueductos-api  gestion-acueductos-api  Synced   Healthy        service/gestion-acueductos-api unchanged
+apps         Deployment   gestion-acueductos-api  gestion-acueductos-api  Synced   Healthy        deployment.apps/gestion-acueductos-api configured
+argoproj.io  Application  argocd                  gestion-acueductos-api  Synced                  application.argoproj.io/gestion-acueductos-api unchanged
+             Namespace                            gestion-acueductos-api  Synced                  
+
+$ kubectl get pods -n gestion-acueductos-api
+NAME                                      READY   STATUS    RESTARTS   AGE
+gestion-acueductos-api-5d496654cc-qhxd7   1/1     Running   0          24s
+gestion-acueductos-api-5d496654cc-xmjtn   1/1     Running   0          4m19s
+
+$ kubectl get deployment gestion-acueductos-api -n gestion-acueductos-api
+NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
+gestion-acueductos-api   2/2     2            2           4m19s
+

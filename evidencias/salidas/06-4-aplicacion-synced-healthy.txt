@@ -1,0 +1,34 @@
+$ argocd app list
+NAME                           CLUSTER                         NAMESPACE               PROJECT  STATUS  HEALTH   SYNCPOLICY  CONDITIONS  REPO                                                                  PATH                                     TARGET
+argocd/gestion-acueductos-api  https://kubernetes.default.svc  gestion-acueductos-api  default  Synced  Healthy  Auto-Prune  <none>      https://github.com/bermudezkenny03/laboratorio-plataforma-gitops.git  repo-gitops/apps/gestion-acueductos-api  HEAD
+
+$ argocd app get gestion-acueductos-api
+Name:               argocd/gestion-acueductos-api
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          gestion-acueductos-api
+URL:                https://localhost:8080/applications/gestion-acueductos-api
+Source:
+- Repo:             https://github.com/bermudezkenny03/laboratorio-plataforma-gitops.git
+  Target:           HEAD
+  Path:             repo-gitops/apps/gestion-acueductos-api
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to HEAD (4a5ed29)
+Health Status:      Healthy
+
+GROUP        KIND         NAMESPACE               NAME                    STATUS   HEALTH   HOOK  MESSAGE
+             Namespace    gestion-acueductos-api  gestion-acueductos-api  Running  Synced         namespace/gestion-acueductos-api created
+             Service      gestion-acueductos-api  gestion-acueductos-api  Synced   Healthy        service/gestion-acueductos-api created
+apps         Deployment   gestion-acueductos-api  gestion-acueductos-api  Synced   Healthy        deployment.apps/gestion-acueductos-api created
+argoproj.io  Application  argocd                  gestion-acueductos-api  Synced                  application.argoproj.io/gestion-acueductos-api configured
+             Namespace                            gestion-acueductos-api  Synced                  
+
+$ kubectl get pods -n gestion-acueductos-api -o wide
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                 NOMINATED NODE   READINESS GATES
+gestion-acueductos-api-5d496654cc-xmjtn   1/1     Running   0          21s   10.42.0.102   laboratorio-gitops   <none>           <none>
+
+$ kubectl get svc -n gestion-acueductos-api
+NAME                     TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
+gestion-acueductos-api   ClusterIP   10.43.218.1   <none>        80/TCP    22s
+
