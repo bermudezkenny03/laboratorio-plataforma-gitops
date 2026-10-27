@@ -1,0 +1,57 @@
+name: Validar laboratorio
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: pip install pyyaml jsonschema referencing -r repo-aplicacion/requirements.txt
+
+      - name: Validar YAML del catálogo y de los manifiestos (paso 4.3)
+        run: |
+          python - <<'EOF'
+          import pathlib, yaml
+          rutas = [*pathlib.Path("repo-aplicacion").glob("*.yaml"),
+                   *pathlib.Path("repo-aplicacion/k8s").glob("*.yaml"),
+                   *pathlib.Path("repo-gitops").rglob("*.yaml")]
+          for ruta in sorted(rutas):
+              list(yaml.safe_load_all(ruta.read_text(encoding="utf-8")))
+              print(f"{ruta} válido")
+          EOF
+
+      - name: Validar el catálogo con los esquemas oficiales de Backstage
+        run: |
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/backstage/backstage.git /tmp/backstage
+          git -C /tmp/backstage sparse-checkout set packages/catalog-model/src/schema
+          python scripts/validar-catalogo-backstage.py /tmp/backstage/packages/catalog-model/src/schema \
+            repo-aplicacion/catalog-info.yaml repo-aplicacion/catalog-grupos.yaml \
+            repo-aplicacion/catalog-sistema.yaml repo-aplicacion/catalog-location.yaml
+
+      - name: La plantilla genera los manifiestos del repositorio GitOps
+        run: |
+          python scripts/generar-servicio.py --valores plantilla-servicio-backend/valores-ejemplo.yaml \
+            --salida-app /tmp/prueba/repo-aplicacion --raiz-gitops /tmp/prueba \
+            --catalogo-grupos repo-aplicacion/catalog-grupos.yaml
+          # replicas se cambia por Git en el paso 6.5, por eso se ignora en la comparación
+          diff -r -I '^  replicas:' /tmp/prueba/repo-gitops/apps/gestion-acueductos-api repo-gitops/apps/gestion-acueductos-api
+
+      - name: Pruebas del código base generado (FastAPI)
+        working-directory: repo-aplicacion
+        run: pytest -q
+
+      - name: Trazabilidad de las fuentes RAG
+        run: python scripts/rag-consulta.py --verificar-fuentes
