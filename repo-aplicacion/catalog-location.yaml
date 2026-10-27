@@ -1,0 +1,13 @@
+# Registra en Backstage las tres entidades del laboratorio con una sola URL:
+# Create > Register Existing Component >
+#   https://github.com/bermudezkenny03/laboratorio-plataforma-gitops/blob/main/repo-aplicacion/catalog-location.yaml
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: laboratorio-plataforma-gitops
+  description: Entidades del laboratorio de plataforma GitOps.
+spec:
+  targets:
+    - ./catalog-grupos.yaml
+    - ./catalog-sistema.yaml
+    - ./catalog-info.yaml

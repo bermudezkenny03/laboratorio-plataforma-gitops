@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gestion-acueductos-api
+  namespace: gestion-acueductos-api
+spec:
+  selector:
+    app: gestion-acueductos-api
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  type: ClusterIP

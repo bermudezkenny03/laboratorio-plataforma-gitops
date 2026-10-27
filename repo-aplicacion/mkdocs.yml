@@ -1,0 +1,5 @@
+site_name: API de Gestión de Acueductos
+nav:
+  - Inicio: index.md
+plugins:
+  - techdocs-core
